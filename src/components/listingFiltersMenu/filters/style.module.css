@@ -1,0 +1,47 @@
+.filters {
+  display: flex;
+  column-gap: 24px;
+  align-items: center;
+  border: 1px solid #dbdbdb;
+  padding: 11px 20px;
+  border-radius: 10px;
+}
+.menuItemBtn {
+  background-color: transparent;
+  font-family: firagoMedium;
+  font-size: 16px;
+  color: #021526;
+  border: none;
+  display: flex;
+  align-items: center;
+  padding: 2px 0;
+}
+.menuItemBtn span {
+  display: flex;
+  align-items: center;
+}
+
+.filterModal {
+  background-color: #fff;
+  border-radius: 10px;
+  border: 1px solid #dbdbdb;
+  padding: 24px;
+  position: absolute;
+}
+.filterContainer {
+  position: relative;
+}
+
+.filterModal h3 {
+  font-family: firagoMedium;
+  font-size: 16px;
+  color: #021526;
+  margin-bottom: 24px;
+}
+
+.itemArrow {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  margin-left: 4px;
+}

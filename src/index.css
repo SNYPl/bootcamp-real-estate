@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  max-width: 1980px;
+  overflow: hidden;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.App {
+  padding: 0 162px;
+}
+
+@font-face {
+  font-family: firago;
+  src: url("./assets/fonts/FiraGO-Regular.woff");
+}
+
+@font-face {
+  font-family: firagoMedium;
+  src: url("./assets/fonts/FiraGO-Medium.woff");
+}
+
+@font-face {
+  font-family: firagoBold;
+  src: url("./assets/fonts/FiraGO-Bold.woff");
+}
