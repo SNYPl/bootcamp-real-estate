@@ -1,2 +1,50 @@
-.FilterRegion {
+.regionModal {
+  width: 731px;
+  max-width: 731px;
+}
+.filterRegion {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 17.5px;
+}
+
+.regionItem {
+  display: flex;
+  align-items: center;
+}
+
+.regionItem input {
+  margin-right: 8px;
+}
+
+.regionItem input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: green;
+}
+
+.regionItem label {
+  color: #021526;
+  font-family: firago;
+  font-size: 14px;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.chooseBtn {
+  background-color: #f93b1d;
+  color: #fff;
+  padding: 8px 14px;
+  font-family: firagoMedium;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  margin-top: 32px;
+}
+
+.chooseBtn:hover {
+  background-color: #df3014;
 }

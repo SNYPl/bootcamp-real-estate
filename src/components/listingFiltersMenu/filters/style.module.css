@@ -3,8 +3,9 @@
   column-gap: 24px;
   align-items: center;
   border: 1px solid #dbdbdb;
-  padding: 11px 20px;
+  padding: 6px;
   border-radius: 10px;
+  z-index: 10;
 }
 .menuItemBtn {
   background-color: transparent;
@@ -14,11 +15,20 @@
   border: none;
   display: flex;
   align-items: center;
-  padding: 2px 0;
+  padding: 0;
 }
 .menuItemBtn span {
   display: flex;
   align-items: center;
+}
+
+.active {
+  background-color: #f3f3f3;
+  border-radius: 6px;
+}
+
+.active span svg {
+  transform: rotate(180deg);
 }
 
 .filterModal {
@@ -27,9 +37,15 @@
   border: 1px solid #dbdbdb;
   padding: 24px;
   position: absolute;
+  box-shadow: 5px 5px 12px rgb(2, 21, 38, 0.08);
+  z-index: 111;
+  top: 50px;
+  left: 0;
 }
 .filterContainer {
   position: relative;
+  z-index: 5;
+  padding: 8px 14px;
 }
 
 .filterModal h3 {
@@ -41,7 +57,7 @@
 
 .itemArrow {
   display: flex;
-  align-content: center;
+  align-items: center;
   justify-content: center;
   margin-left: 4px;
 }

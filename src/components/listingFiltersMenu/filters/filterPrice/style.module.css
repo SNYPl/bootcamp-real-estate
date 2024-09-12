@@ -1,2 +1,88 @@
-.FilterPrice {
+.priceModal {
+  width: 382px;
+  max-width: 382px;
+}
+
+.priceInputs {
+  column-gap: 15px;
+  margin-bottom: 24px;
+}
+.priceInputs input {
+  border: 1px solid #808a93;
+  border-radius: 6px;
+  padding: 12.5px 10px;
+  padding-right: 22px;
+  max-width: 155px;
+  outline: none;
+}
+
+.priceInputs input::placeholder {
+  color: rgb(2, 21, 38, 0.4);
+  font-family: firago;
+}
+.fromInput,
+.toInput {
+  position: relative;
+}
+
+.lariSign {
+  position: absolute;
+  right: 10px;
+  top: 13px;
+}
+
+.suggestPrices {
+  display: flex;
+  justify-content: space-between;
+}
+
+.priceList {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.priceList h4 {
+  font-family: firagoMedium;
+  color: #021526;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.priceList button {
+  max-width: max-content;
+  font-size: 14px;
+  color: #2d3648;
+  background-color: transparent;
+  border: none;
+  margin-bottom: 12px;
+}
+
+.error {
+  font-family: firago;
+  font-size: 12px;
+  text-wrap: nowrap;
+  color: #f93b1d;
+  position: absolute;
+  bottom: -16px;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.chooseBtn {
+  background-color: #f93b1d;
+  color: #fff;
+  padding: 8px 14px;
+  font-family: firagoMedium;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  margin-top: 32px;
+}
+
+.chooseBtn:hover {
+  background-color: #df3014;
 }

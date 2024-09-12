@@ -9,11 +9,21 @@ const Filters = () => {
   return (
     <div className={`${style.filters} `}>
       {filterMenu.map((item) => (
-        <div className={`"flex align-center ${style.filterContainer}`}>
+        <div
+          className={`flex align-center ${style.filterContainer} ${
+            menu === item.title ? style.active : ""
+          }`}
+          key={item.title}
+        >
           <Button
             className={style.menuItemBtn}
-            key={item.title}
-            onClick={() => setMenu(item.title)}
+            onClick={() => {
+              if (menu === item.title) {
+                setMenu("");
+                return;
+              }
+              setMenu(item.title);
+            }}
           >
             {item.title}
           </Button>
