@@ -1,24 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "./style.module.css";
 import FilterModal from "../FilterModal";
 import { useForm } from "react-hook-form";
 import Button from "../../../button/Button";
+import { useLocalStorage } from "@uidotdev/usehooks";
+import { filterDefaultDataForLocalStorage } from "../../../lib/filterDefaultData";
 
-const FilterPrice = () => {
+const FilterPrice = ({ setMenu }) => {
+  const [priceValue, setPriceValue] = useState({
+    fromPrice: "",
+    toPrice: "",
+  });
+
   const {
     register,
     handleSubmit,
     watch,
     setValue,
+
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      fromPrice: priceValue.fromPrice && priceValue.fromPrice,
+      toPrice: priceValue.toPrice && priceValue.toPrice,
+    },
+  });
+
+  const [filterItems, setFilterItems] = useLocalStorage(
+    "filters",
+    filterDefaultDataForLocalStorage
+  );
+
+  useEffect(() => {
+    const priceValues = filterItems?.map((el) => el.price);
+
+    setPriceValue(...priceValues);
+  }, [filterItems.price]);
 
   const pickPrices = [50000, 100000, 150000, 200000, 300000];
 
-  const fromPrice = watch("fromPrice");
   const toPrice = watch("toPrice");
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    setFilterItems((prevState) => {
+      return prevState.map((item) => {
+        if (item.price) {
+          return { ...item, price: data };
+        }
+        return item;
+      });
+    });
+
+    setMenu("");
+  };
 
   const handleSuggestionClick = (value, inputName) => {
     setValue(inputName, value);
@@ -37,12 +71,22 @@ const FilterPrice = () => {
               <input
                 type="number"
                 placeholder="დან"
+                value={priceValue.fromPrice}
                 style={{ borderColor: errors.fromPrice ? "#F93B1D" : "" }}
                 {...register("fromPrice", {
-                  min: { value: 0, message: "Minimum value is 0" },
-                  validate: (value) =>
-                    value <= toPrice || "ჩაწერეთ ვალიდური მონაცემები",
+                  validate: (value) => {
+                    if (Number(value) > Number(toPrice)) {
+                      return "ჩაწერეთ ვალიდური მონაცემები";
+                    }
+                    return true;
+                  },
                 })}
+                onChange={(e) => {
+                  setPriceValue((prevState) => ({
+                    ...prevState,
+                    fromPrice: e.target.value,
+                  }));
+                }}
               />
               <span className={style.lariSign}>₾</span>
               {errors.fromPrice && (
@@ -53,12 +97,16 @@ const FilterPrice = () => {
             <div className={style.toInput}>
               <input
                 type="number"
+                value={priceValue.toPrice}
                 style={{ borderColor: errors.fromPrice ? "#F93B1D" : "" }}
                 placeholder="მდე"
-                {...register("toPrice", {
-                  min: { value: 0, message: "Minimum value is 0" },
-                  validate: (value) => value >= fromPrice || "",
-                })}
+                {...register("toPrice")}
+                onChange={(e) => {
+                  setPriceValue((prevState) => ({
+                    ...prevState,
+                    toPrice: e.target.value,
+                  }));
+                }}
               />
               <span className={style.lariSign}>₾</span>
             </div>
@@ -71,7 +119,13 @@ const FilterPrice = () => {
                 <button
                   type="button"
                   key={value}
-                  onClick={() => handleSuggestionClick(value, "fromPrice")}
+                  onClick={() => {
+                    handleSuggestionClick(value, "fromPrice");
+                    setPriceValue((prevState) => ({
+                      ...prevState,
+                      fromPrice: value,
+                    }));
+                  }}
                 >
                   {formatNumber(value)} ₾
                 </button>
@@ -84,7 +138,13 @@ const FilterPrice = () => {
                 <button
                   type="button"
                   key={value}
-                  onClick={() => handleSuggestionClick(value, "toPrice")}
+                  onClick={() => {
+                    handleSuggestionClick(value, "toPrice");
+                    setPriceValue((prevState) => ({
+                      ...prevState,
+                      toPrice: value,
+                    }));
+                  }}
                 >
                   {formatNumber(value)} ₾
                 </button>

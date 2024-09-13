@@ -1,0 +1,45 @@
+.buttons {
+  display: flex;
+  column-gap: 16px;
+}
+
+.addBtn {
+  padding: 12.5px 16px;
+  border-radius: 10px;
+  font-family: firagoMedium;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.addBtn span {
+  display: flex;
+  margin-right: 5px;
+  align-items: center;
+  height: 100%;
+}
+
+.listingBtn {
+  background-color: #f93b1d;
+  color: #fff;
+}
+.listingBtn:hover {
+  background-color: #df3014;
+}
+
+.agentBtn {
+  background-color: #fff;
+  color: #f93b1d;
+  border: 1px solid #f93b1d;
+}
+
+.agentBtn:hover {
+  background-color: #f93b1d;
+  color: #fff;
+}
+
+.agentBtn:hover svg path {
+  fill: #fff;
+}

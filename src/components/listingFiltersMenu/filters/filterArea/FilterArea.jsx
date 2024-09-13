@@ -1,31 +1,59 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import style from "./style.module.css";
 import FilterModal from "../FilterModal";
 import { useForm } from "react-hook-form";
 import Button from "../../../button/Button";
+import { useLocalStorage } from "@uidotdev/usehooks";
+import { filterDefaultDataForLocalStorage } from "../../../lib/filterDefaultData";
 
-const FilterArea = () => {
+const FilterArea = ({ setMenu }) => {
+  const [areaValue, setAreaValue] = useState({
+    fromArea: "",
+    toArea: "",
+  });
   const {
     register,
     handleSubmit,
     watch,
     setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      fromArea: areaValue.fromArea && areaValue.fromArea,
+      toArea: areaValue.toArea && areaValue.toArea,
+    },
+  });
 
-  const pickPrices = [50000, 100000, 150000, 200000, 300000];
+  const [filterItems, setFilterItems] = useLocalStorage(
+    "filters",
+    filterDefaultDataForLocalStorage
+  );
 
-  const fromPrice = watch("fromPrice");
-  const toPrice = watch("toPrice");
+  useEffect(() => {
+    const areaValues = filterItems?.map((el) => el.area);
 
-  const onSubmit = (data) => console.log(data);
+    setAreaValue(...areaValues);
+  }, []);
+
+  const pickPrices = [50, 100, 200, 300, 400];
+
+  const toArea = watch("toArea");
+
+  const onSubmit = (data) => {
+    setFilterItems((prevState) => {
+      return prevState.map((item) => {
+        if (item.price) {
+          return { ...item, area: data };
+        }
+        return item;
+      });
+    });
+
+    setMenu("");
+  };
 
   const handleSuggestionClick = (value, inputName) => {
     setValue(inputName, value);
-  };
-
-  const formatNumber = (value) => {
-    return new Intl.NumberFormat("en-US").format(value);
   };
 
   return (
@@ -37,16 +65,26 @@ const FilterArea = () => {
               <input
                 type="number"
                 placeholder="დან"
-                style={{ borderColor: errors.fromPrice ? "#F93B1D" : "" }}
-                {...register("fromPrice", {
-                  min: { value: 0, message: "Minimum value is 0" },
-                  validate: (value) =>
-                    value <= toPrice || "ჩაწერეთ ვალიდური მონაცემები",
+                value={areaValue.fromArea}
+                style={{ borderColor: errors.fromArea ? "#F93B1D" : "" }}
+                {...register("fromArea", {
+                  validate: (value) => {
+                    if (Number(value) > Number(toArea)) {
+                      return "ჩაწერეთ ვალიდური მონაცემები";
+                    }
+                    return true;
+                  },
                 })}
+                onChange={(e) => {
+                  setAreaValue((prevState) => ({
+                    ...prevState,
+                    fromArea: e.target.value,
+                  }));
+                }}
               />
               <span className={style.lariSign}>მ²</span>
-              {errors.fromPrice && (
-                <p className={style.error}>{errors.fromPrice.message}</p>
+              {errors.fromArea && (
+                <p className={style.error}>{errors.fromArea.message}</p>
               )}
             </div>
 
@@ -54,11 +92,15 @@ const FilterArea = () => {
               <input
                 type="number"
                 placeholder="მდე"
-                style={{ borderColor: errors.fromPrice ? "#F93B1D" : "" }}
-                {...register("toPrice", {
-                  min: { value: 0, message: "Minimum value is 0" },
-                  validate: (value) => value >= fromPrice || "",
-                })}
+                value={areaValue.toArea}
+                style={{ borderColor: errors.fromArea ? "#F93B1D" : "" }}
+                {...register("toArea")}
+                onChange={(e) => {
+                  setAreaValue((prevState) => ({
+                    ...prevState,
+                    toArea: e.target.value,
+                  }));
+                }}
               />
               <span className={style.lariSign}>მ²</span>
             </div>
@@ -71,9 +113,15 @@ const FilterArea = () => {
                 <button
                   type="button"
                   key={value}
-                  onClick={() => handleSuggestionClick(value, "fromPrice")}
+                  onClick={() => {
+                    handleSuggestionClick(value, "fromArea");
+                    setAreaValue((prevState) => ({
+                      ...prevState,
+                      fromArea: value,
+                    }));
+                  }}
                 >
-                  {formatNumber(value)} მ²
+                  {value} მ²
                 </button>
               ))}
             </div>
@@ -84,9 +132,15 @@ const FilterArea = () => {
                 <button
                   type="button"
                   key={value}
-                  onClick={() => handleSuggestionClick(value, "toPrice")}
+                  onClick={() => {
+                    handleSuggestionClick(value, "toArea");
+                    setAreaValue((prevState) => ({
+                      ...prevState,
+                      toArea: value,
+                    }));
+                  }}
                 >
-                  {formatNumber(value)} მ²
+                  {value} მ²
                 </button>
               ))}
             </div>

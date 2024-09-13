@@ -1,2 +1,48 @@
+.bedroomModal {
+  width: 282px;
+  max-width: 282px;
+}
+
 .filterBedroom {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.bedroomItem {
+  border: 1px solid #808a93;
+  border-radius: 6px;
+  padding: 12px 10px;
+  font-family: firago;
+  font-size: 14px;
+  color: rgb(2, 21, 38, 0.4);
+  width: 42px;
+  height: 42px;
+  text-align: center;
+}
+
+.active {
+  color: rgb(2, 21, 38, 1);
+  border: 1px solid #424446;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.chooseBtn {
+  background-color: #f93b1d;
+  color: #fff;
+  padding: 8px 14px;
+  font-family: firagoMedium;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  margin-top: 32px;
+}
+
+.chooseBtn:hover {
+  background-color: #df3014;
 }

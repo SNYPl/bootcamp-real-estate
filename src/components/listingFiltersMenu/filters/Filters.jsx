@@ -3,11 +3,12 @@ import style from "./style.module.css";
 import { filterMenu } from "../../lib/filterMenu";
 import Button from "../../button/Button";
 import { Arrow } from "../../../assets/common/svg/filter";
+import FilterItems from "./filterItems/FilterItems";
 
 const Filters = () => {
   const [menu, setMenu] = useState("");
   return (
-    <div className={`${style.filters} `}>
+    <section className={`${style.filters} `}>
       {filterMenu.map((item) => (
         <div
           className={`flex align-center ${style.filterContainer} ${
@@ -25,13 +26,14 @@ const Filters = () => {
               setMenu(item.title);
             }}
           >
-            {item.title}
+            {item.title} <span className={style.itemArrow}>{<Arrow />}</span>
           </Button>
-          <span className={style.itemArrow}>{<Arrow />}</span>
-          {menu === item.title && <item.Modal />}
+
+          {menu === item.title && <item.Modal setMenu={setMenu} />}
         </div>
       ))}
-    </div>
+      <FilterItems />
+    </section>
   );
 };
 

@@ -1,0 +1,4 @@
+.listingFIlters {
+  display: flex;
+  justify-content: space-between;
+}
