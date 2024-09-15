@@ -1,0 +1,37 @@
+.listingAdd {
+  padding: 62px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.listingAdd h2 {
+  font-family: firagoMedium;
+  font-size: 32px;
+  color: #021526;
+  margin-bottom: 61px;
+}
+
+.areaInputs input {
+  border: 1px solid #808a93;
+  border-radius: 6px;
+  padding: 12.5px 10px;
+  padding-right: 22px;
+  max-width: 155px;
+  outline: none;
+}
+
+.chooseBtn {
+  background-color: #f93b1d;
+  color: #fff;
+  padding: 8px 14px;
+  font-family: firagoMedium;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  margin-top: 32px;
+}
+
+.chooseBtn:hover {
+  background-color: #df3014;
+}

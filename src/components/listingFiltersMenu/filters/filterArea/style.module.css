@@ -7,6 +7,7 @@
   column-gap: 15px;
   margin-bottom: 24px;
 }
+
 .areaInputs input {
   border: 1px solid #808a93;
   border-radius: 6px;
@@ -36,20 +37,20 @@
   justify-content: space-between;
 }
 
-.priceList {
+.areaList {
   display: flex;
   flex-direction: column;
   width: 50%;
 }
 
-.priceList h4 {
+.areaList h4 {
   font-family: firagoMedium;
   color: #021526;
   font-size: 14px;
   margin-bottom: 16px;
 }
 
-.priceList button {
+.areaList button {
   max-width: max-content;
   font-size: 14px;
   color: #2d3648;

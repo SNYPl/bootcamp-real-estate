@@ -8,6 +8,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  position: relative;
 }
 
 .bedroomItem {
@@ -20,6 +21,17 @@
   width: 42px;
   height: 42px;
   text-align: center;
+  outline: none;
+}
+
+.bedroomItem::-webkit-outer-spin-button,
+.bedroomItem::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.bedroomItem[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .active {
@@ -30,6 +42,15 @@
 .btnContainer {
   display: flex;
   justify-content: flex-end;
+}
+
+.error {
+  font-family: firago;
+  font-size: 12px;
+  text-wrap: nowrap;
+  color: #f93b1d;
+  position: absolute;
+  bottom: -16px;
 }
 
 .chooseBtn {

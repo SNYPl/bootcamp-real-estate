@@ -1,8 +1,15 @@
-export const filterDefaultDataForLocalStorage = [
-  {
-    region: [],
-    price: { from: null, to: null },
-    area: { fromArea: null, toArea: null },
-    bedroom: null,
-  },
-];
+// export const filterDefaultDataForLocalStorage = [
+//   {
+//     region: [],
+//     price: { from: "", to: "" },
+//     area: { fromArea: "", toArea: "" },
+//     bedroom: "",
+//   },
+// ];
+
+export const filterDefaultDataForLocalStorage = {
+  region: [],
+  price: { from: "", to: "" },
+  area: { fromArea: "", toArea: "" },
+  bedroom: "",
+};

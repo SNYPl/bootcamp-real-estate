@@ -18,10 +18,10 @@ const FilterRegion = ({ setMenu }) => {
   const { register, handleSubmit } = useForm();
 
   useEffect(() => {
-    const allCheckedItems = filterItems?.map((el) => el.region);
+    const allCheckedItems = filterItems?.region;
 
-    setCheckedRegions(...allCheckedItems);
-  }, [filterItems.region]);
+    setCheckedRegions(allCheckedItems);
+  }, [filterItems.region.length]);
 
   useEffect(() => {
     const fetchRegions = async () => {
@@ -38,16 +38,7 @@ const FilterRegion = ({ setMenu }) => {
 
   const onSubmit = (data) => {
     setFilterItems((state) => {
-      const updatedState = state.map((item) => {
-        if (item.region) {
-          return { ...item, region: data.checkbox };
-        }
-        return item;
-      });
-
-      return updatedState.length
-        ? updatedState
-        : [...state, { region: data.checkbox }];
+      return { ...state, region: data.checkbox };
     });
 
     setMenu("");

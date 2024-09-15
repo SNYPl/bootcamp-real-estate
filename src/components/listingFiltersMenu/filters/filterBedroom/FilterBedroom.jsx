@@ -1,20 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import style from "./style.module.css";
 import FilterModal from "../FilterModal";
 import { useForm } from "react-hook-form";
 import Button from "../../../button/Button";
+import { filterDefaultDataForLocalStorage } from "../../../lib/filterDefaultData";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
-const FilterBedroom = () => {
-  const [bedroom, setBedroom] = useState(null);
-  const bedroomList = [1, 2, 3, 4, 5];
+const FilterBedroom = ({ setMenu }) => {
+  const [filterItems, setFilterItems] = useLocalStorage(
+    "filters",
+    filterDefaultDataForLocalStorage
+  );
 
-  const { handleSubmit, setValue } = useForm({
-    defaultValues: {
-      bedroom: null,
-    },
-  });
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm({});
 
-  const onSubmit = (data) => console.log(data);
+  useEffect(() => {
+    const bedroomValue = filterItems.bedroom;
+
+    setValue("bedroom", bedroomValue);
+  }, [filterItems.bedroom, setValue]);
+
+  const bedroomOnchangeValue = Number(watch("bedroom"));
+
+  const onSubmit = (data) => {
+    setFilterItems((prevState) => {
+      return { ...prevState, bedroom: Number(data.bedroom) };
+    });
+
+    setMenu("");
+  };
 
   return (
     <FilterModal
@@ -23,20 +43,20 @@ const FilterBedroom = () => {
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={style.filterBedroom}>
-          {bedroomList.map((el) => (
-            <div
-              className={`${style.bedroomItem} ${
-                bedroom === el ? style.active : ""
-              }`}
-              key={el}
-              onClick={() => {
-                setBedroom(() => el);
-                setValue("bedroom", el);
-              }}
-            >
-              {el}
-            </div>
-          ))}
+          <input
+            type="number"
+            placeholder=""
+            value={bedroomOnchangeValue || ""}
+            className={`${style.bedroomItem} `}
+            style={{ borderColor: errors.bedroom ? "#F93B1D" : "" }}
+            {...register("bedroom", {
+              validate: (value) =>
+                Number(value) > 0 || "რიცხვი უნდა იყოს 0-ზე მეტი",
+            })}
+          />
+          {errors.bedroom && (
+            <p className={style.error}>{errors.bedroom.message}</p>
+          )}
         </div>
 
         <div className={style.btnContainer}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import style from "./style.module.css";
 import FilterModal from "../FilterModal";
 import { useForm } from "react-hook-form";
@@ -7,24 +7,13 @@ import { useLocalStorage } from "@uidotdev/usehooks";
 import { filterDefaultDataForLocalStorage } from "../../../lib/filterDefaultData";
 
 const FilterPrice = ({ setMenu }) => {
-  const [priceValue, setPriceValue] = useState({
-    fromPrice: "",
-    toPrice: "",
-  });
-
   const {
     register,
     handleSubmit,
     watch,
     setValue,
-
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      fromPrice: priceValue.fromPrice && priceValue.fromPrice,
-      toPrice: priceValue.toPrice && priceValue.toPrice,
-    },
-  });
+  } = useForm({});
 
   const [filterItems, setFilterItems] = useLocalStorage(
     "filters",
@@ -32,23 +21,18 @@ const FilterPrice = ({ setMenu }) => {
   );
 
   useEffect(() => {
-    const priceValues = filterItems?.map((el) => el.price);
-
-    setPriceValue(...priceValues);
-  }, [filterItems.price]);
+    setValue("fromPrice", filterItems.price.fromPrice);
+    setValue("toPrice", filterItems.price.toPrice);
+  }, []);
 
   const pickPrices = [50000, 100000, 150000, 200000, 300000];
 
-  const toPrice = watch("toPrice");
+  const fromPrice = Number(watch("fromPrice"));
+  const toPrice = Number(watch("toPrice"));
 
   const onSubmit = (data) => {
     setFilterItems((prevState) => {
-      return prevState.map((item) => {
-        if (item.price) {
-          return { ...item, price: data };
-        }
-        return item;
-      });
+      return { ...prevState, price: data };
     });
 
     setMenu("");
@@ -71,22 +55,16 @@ const FilterPrice = ({ setMenu }) => {
               <input
                 type="number"
                 placeholder="დან"
-                value={priceValue.fromPrice}
+                value={fromPrice ? fromPrice : ""}
                 style={{ borderColor: errors.fromPrice ? "#F93B1D" : "" }}
                 {...register("fromPrice", {
                   validate: (value) => {
-                    if (Number(value) > Number(toPrice)) {
+                    if (Number(value) > toPrice) {
                       return "ჩაწერეთ ვალიდური მონაცემები";
                     }
                     return true;
                   },
                 })}
-                onChange={(e) => {
-                  setPriceValue((prevState) => ({
-                    ...prevState,
-                    fromPrice: e.target.value,
-                  }));
-                }}
               />
               <span className={style.lariSign}>₾</span>
               {errors.fromPrice && (
@@ -97,16 +75,10 @@ const FilterPrice = ({ setMenu }) => {
             <div className={style.toInput}>
               <input
                 type="number"
-                value={priceValue.toPrice}
+                value={toPrice ? toPrice : ""}
                 style={{ borderColor: errors.fromPrice ? "#F93B1D" : "" }}
                 placeholder="მდე"
                 {...register("toPrice")}
-                onChange={(e) => {
-                  setPriceValue((prevState) => ({
-                    ...prevState,
-                    toPrice: e.target.value,
-                  }));
-                }}
               />
               <span className={style.lariSign}>₾</span>
             </div>
@@ -121,10 +93,6 @@ const FilterPrice = ({ setMenu }) => {
                   key={value}
                   onClick={() => {
                     handleSuggestionClick(value, "fromPrice");
-                    setPriceValue((prevState) => ({
-                      ...prevState,
-                      fromPrice: value,
-                    }));
                   }}
                 >
                   {formatNumber(value)} ₾
@@ -140,10 +108,6 @@ const FilterPrice = ({ setMenu }) => {
                   key={value}
                   onClick={() => {
                     handleSuggestionClick(value, "toPrice");
-                    setPriceValue((prevState) => ({
-                      ...prevState,
-                      toPrice: value,
-                    }));
                   }}
                 >
                   {formatNumber(value)} ₾

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import style from "./style.module.css";
 import FilterModal from "../FilterModal";
 import { useForm } from "react-hook-form";
@@ -7,46 +7,32 @@ import { useLocalStorage } from "@uidotdev/usehooks";
 import { filterDefaultDataForLocalStorage } from "../../../lib/filterDefaultData";
 
 const FilterArea = ({ setMenu }) => {
-  const [areaValue, setAreaValue] = useState({
-    fromArea: "",
-    toArea: "",
-  });
   const {
     register,
     handleSubmit,
     watch,
     setValue,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      fromArea: areaValue.fromArea && areaValue.fromArea,
-      toArea: areaValue.toArea && areaValue.toArea,
-    },
-  });
+  } = useForm();
 
   const [filterItems, setFilterItems] = useLocalStorage(
     "filters",
     filterDefaultDataForLocalStorage
   );
 
-  useEffect(() => {
-    const areaValues = filterItems?.map((el) => el.area);
-
-    setAreaValue(...areaValues);
-  }, []);
-
   const pickPrices = [50, 100, 200, 300, 400];
 
-  const toArea = watch("toArea");
+  useEffect(() => {
+    setValue("fromArea", filterItems?.area?.fromArea);
+    setValue("toArea", filterItems?.area?.toArea);
+  }, []);
+
+  const fromArea = Number(watch("fromArea"));
+  const toArea = Number(watch("toArea"));
 
   const onSubmit = (data) => {
     setFilterItems((prevState) => {
-      return prevState.map((item) => {
-        if (item.price) {
-          return { ...item, area: data };
-        }
-        return item;
-      });
+      return { ...prevState, area: data };
     });
 
     setMenu("");
@@ -65,7 +51,7 @@ const FilterArea = ({ setMenu }) => {
               <input
                 type="number"
                 placeholder="დან"
-                value={areaValue.fromArea}
+                value={fromArea ? fromArea : ""}
                 style={{ borderColor: errors.fromArea ? "#F93B1D" : "" }}
                 {...register("fromArea", {
                   validate: (value) => {
@@ -75,12 +61,6 @@ const FilterArea = ({ setMenu }) => {
                     return true;
                   },
                 })}
-                onChange={(e) => {
-                  setAreaValue((prevState) => ({
-                    ...prevState,
-                    fromArea: e.target.value,
-                  }));
-                }}
               />
               <span className={style.lariSign}>მ²</span>
               {errors.fromArea && (
@@ -92,22 +72,16 @@ const FilterArea = ({ setMenu }) => {
               <input
                 type="number"
                 placeholder="მდე"
-                value={areaValue.toArea}
+                value={toArea ? toArea : ""}
                 style={{ borderColor: errors.fromArea ? "#F93B1D" : "" }}
                 {...register("toArea")}
-                onChange={(e) => {
-                  setAreaValue((prevState) => ({
-                    ...prevState,
-                    toArea: e.target.value,
-                  }));
-                }}
               />
               <span className={style.lariSign}>მ²</span>
             </div>
           </div>
 
           <div className={style.suggestPrices}>
-            <div className={style.priceList}>
+            <div className={style.areaList}>
               <h4>მინ. მ²</h4>
               {pickPrices.map((value) => (
                 <button
@@ -115,10 +89,6 @@ const FilterArea = ({ setMenu }) => {
                   key={value}
                   onClick={() => {
                     handleSuggestionClick(value, "fromArea");
-                    setAreaValue((prevState) => ({
-                      ...prevState,
-                      fromArea: value,
-                    }));
                   }}
                 >
                   {value} მ²
@@ -126,7 +96,7 @@ const FilterArea = ({ setMenu }) => {
               ))}
             </div>
 
-            <div className={style.priceList}>
+            <div className={style.areaList}>
               <h4>მაქს. მ²</h4>
               {pickPrices.map((value) => (
                 <button
@@ -134,10 +104,6 @@ const FilterArea = ({ setMenu }) => {
                   key={value}
                   onClick={() => {
                     handleSuggestionClick(value, "toArea");
-                    setAreaValue((prevState) => ({
-                      ...prevState,
-                      toArea: value,
-                    }));
                   }}
                 >
                   {value} მ²

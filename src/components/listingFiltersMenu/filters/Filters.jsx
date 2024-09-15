@@ -3,7 +3,6 @@ import style from "./style.module.css";
 import { filterMenu } from "../../lib/filterMenu";
 import Button from "../../button/Button";
 import { Arrow } from "../../../assets/common/svg/filter";
-import FilterItems from "./filterItems/FilterItems";
 
 const Filters = () => {
   const [menu, setMenu] = useState("");
@@ -32,7 +31,6 @@ const Filters = () => {
           {menu === item.title && <item.Modal setMenu={setMenu} />}
         </div>
       ))}
-      <FilterItems />
     </section>
   );
 };
