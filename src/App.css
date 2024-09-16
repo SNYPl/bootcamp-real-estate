@@ -1,0 +1,38 @@
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.swiper-button-prevv {
+  position: absolute;
+  left: 90px;
+  top: calc(50% + 64px);
+}
+
+.swiper-button-nextt {
+  position: absolute;
+  right: 90px;
+  top: calc(50% + 64px);
+}
+
+.mySwiper {
+  z-index: 1;
+}

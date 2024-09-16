@@ -43,3 +43,8 @@
 .agentBtn:hover svg path {
   fill: #fff;
 }
+
+.modal {
+  width: 1009px !important;
+  height: 784px !important;
+}

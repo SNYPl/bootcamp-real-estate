@@ -8,14 +8,18 @@ import {
   ListingBedSvg,
   ListingFrameSvg,
   ListingPostalCodeSvg,
+  LeftArrow,
 } from "../../assets/common/svg/listing";
 import listImg from "../../assets/images/listInfo.png";
 import AgentInfo from "./AgentInfo";
 import Button from "../button/Button";
-import Modal from "../modal/Moda";
+import Modal from "../modal/Modal";
+import SimilarListingSlider from "./similarListingSlider/SimilarListingSlider";
+import { useNavigate } from "react-router-dom";
 
 const ListingInfoPage = () => {
   const [deleteAgent, setDeleteAgent] = useState(false);
+  const navigate = useNavigate();
   // const options = {
   //   method: "GET",
   //   url:
@@ -45,10 +49,18 @@ const ListingInfoPage = () => {
   return (
     <>
       {deleteAgent && (
-        <Modal setDeleteAgent={setDeleteAgent}>გსურთ წაშალოთ ლისტინგი?</Modal>
+        <Modal setDeleteAgent={setDeleteAgent} hideButtons={false}>
+          <p>გსურთ წაშალოთ ლისტინგი?</p>
+        </Modal>
       )}
       <section className={`${style.listingInfoPage} `}>
         <div className={`${style.listingImage} `}>
+          <div
+            className={`${style.backArrowIcon} `}
+            onClick={() => navigate("/")}
+          >
+            <LeftArrow />
+          </div>
           <img src={listImg} alt="listing-image" />
           <span>ქირავდება</span>
         </div>
@@ -98,7 +110,11 @@ const ListingInfoPage = () => {
             ლისტინგის წაშლა
           </Button>
         </div>
+        <p className={style.listingInfoDate}>
+          გამოქვეყნების თარიღი <span>08/08/24</span>
+        </p>
       </section>
+      <SimilarListingSlider />
     </>
   );
 };

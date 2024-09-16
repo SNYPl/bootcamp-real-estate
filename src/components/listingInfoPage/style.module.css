@@ -169,3 +169,17 @@
   border: none;
   background-color: #808a93;
 }
+
+.listingInfoDate {
+  text-align: right;
+  font-family: firago;
+  font-size: 16px;
+  color: #808a93;
+  margin-top: 14px;
+}
+
+.backArrowIcon {
+  position: absolute;
+  top: -40px;
+  cursor: pointer;
+}

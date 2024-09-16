@@ -88,10 +88,10 @@
 }
 
 .error {
-  font-family: firago;
-  font-size: 12px;
-  text-wrap: nowrap;
-  color: #f93b1d;
+  font-family: firago !important;
+  font-size: 12px !important;
+  text-wrap: nowrap !important;
+  color: #f93b1d !important;
 }
 
 .successValidate {

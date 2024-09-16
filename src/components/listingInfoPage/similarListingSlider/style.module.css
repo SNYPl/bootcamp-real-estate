@@ -1,0 +1,13 @@
+.similarListingSlider {
+  padding: 0 162px;
+  margin-top: 67px;
+  position: relative;
+  padding-bottom: 228px;
+}
+
+.similarListingSlider h2 {
+  font-size: 32px;
+  font-family: firagoMedium;
+  color: #021526;
+  margin-bottom: 52px;
+}
