@@ -1,0 +1,87 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(2, 21, 38, 0.34);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.overlay::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(8px);
+  z-index: -1;
+}
+
+.modal {
+  width: 623px;
+  height: 222px;
+  background-color: #fff;
+  border-radius: 20px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.modal p {
+  margin-bottom: 35px;
+  font-family: firago;
+  font-size: 20px;
+  color: #2d3648;
+}
+
+.closeIcon {
+  position: absolute;
+  right: 30px;
+  top: 24px;
+}
+
+.buttons {
+  display: flex;
+  column-gap: 16px;
+}
+
+.addBtn {
+  padding: 12.5px 16px;
+  border-radius: 10px;
+  font-family: firagoMedium;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.listingBtn {
+  background-color: #f93b1d;
+  color: #fff;
+}
+.listingBtn:hover {
+  background-color: #df3014;
+}
+
+.agentBtn {
+  background-color: #fff;
+  color: #f93b1d;
+  border: 1px solid #f93b1d;
+}
+
+.agentBtn:hover {
+  background-color: #f93b1d;
+  color: #fff;
+}
+
+.agentBtn:hover svg path {
+  fill: #fff;
+}

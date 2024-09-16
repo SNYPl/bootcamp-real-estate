@@ -10,6 +10,10 @@
   width: 790px;
 }
 
+.addListInputs textarea {
+  resize: none;
+}
+
 .listingAdd h2 {
   font-family: firagoMedium;
   font-size: 32px;

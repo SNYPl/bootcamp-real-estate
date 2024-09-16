@@ -85,9 +85,13 @@ const LocationInputs = ({
           <label>
             <span>საფოსტო ინდექსი*</span>
             <input
-              type="number"
+              type="text"
               {...register("zip_code", {
                 required: "ველი სავალდებულოა",
+                pattern: {
+                  value: /^[0-9]+$/,
+                  message: "მხოლოდ რიცხვები",
+                },
               })}
             />
           </label>

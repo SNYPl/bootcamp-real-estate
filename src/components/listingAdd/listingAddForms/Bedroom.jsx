@@ -9,22 +9,31 @@ const Bedroom = ({ register, errors }) => {
       <div className={style.formInputs}>
         <div
           className={`${style.inputContainers} ${
-            errors.address ? style.errorBtn : ""
+            errors.bedroom ? style.errorBtn : ""
           }`}
         >
           <label>
             <span>საძინებლების რაოდენობა*</span>
             <input
-              type="number"
+              type="text"
               {...register("bedroom", {
                 required: "ველი სავალდებულოა",
+                pattern: {
+                  value: /^[0-9]+$/,
+                  message: "მხოლოდ რიცხვები",
+                },
+                validate: {
+                  isWholeNumber: (value) =>
+                    Number.isInteger(Number(value)) ||
+                    "მხოლოდ მთლიანი რიცხვები",
+                },
               })}
             />
           </label>
 
-          <p className={`${errors.address ? style.error : style.tipText} `}>
-            {errors.address ? (
-              errors.address.message
+          <p className={`${errors.bedroom ? style.error : style.tipText} `}>
+            {errors.bedroom ? (
+              errors.bedroom.message
             ) : (
               <span>
                 <ValidationMarkSvg /> მხოლოდ რიცხვები

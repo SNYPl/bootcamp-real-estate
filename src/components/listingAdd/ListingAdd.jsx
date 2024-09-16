@@ -7,19 +7,20 @@ import { useForm } from "react-hook-form";
 import Button from "../button/Button";
 import LocationInputs from "./listingAddForms/Location";
 import { getAllRegions } from "../../utils/getAllRegions";
+import Details from "./listingAddForms/Details";
+import Agents from "./listingAddForms/Agents";
+import { useNavigate } from "react-router-dom";
 
 const ListingAdd = () => {
   const [regions, setRegions] = useState([]);
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     watch,
-    setValue,
     formState: { errors, validatingFields },
   } = useForm();
-
-  console.log(validatingFields);
 
   useEffect(() => {
     const fetchRegions = async () => {
@@ -38,6 +39,10 @@ const ListingAdd = () => {
     console.log(data);
   };
 
+  const cancelBtnHandler = () => {
+    navigate("/");
+  };
+
   return (
     <section className={`${style.listingAdd} `}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -50,9 +55,19 @@ const ListingAdd = () => {
           regions={regions}
           validatingFields={validatingFields}
         />
+        <Details
+          register={register}
+          errors={errors}
+          validatingFields={validatingFields}
+        />
+        <Agents register={register} errors={errors} />
         <div className={style.buttons}>
           <div className={style.btnContainer}>
-            <Button type={"button"} className={style.cancelBtn}>
+            <Button
+              type={"button"}
+              className={style.cancelBtn}
+              onClick={cancelBtnHandler}
+            >
               გაუქმება
             </Button>
           </div>

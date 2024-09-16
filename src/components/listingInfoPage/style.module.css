@@ -1,0 +1,171 @@
+.listingInfoPage {
+  padding: 0 162px;
+  display: grid;
+  column-gap: 68px;
+  grid-template-columns: 2fr 1fr;
+}
+
+.listingPage {
+  max-width: 384px;
+}
+
+.listingImage {
+  height: 670px;
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.listingImage img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.listingImage span {
+  position: absolute;
+  top: 23px;
+  left: 23px;
+  border-radius: 20px;
+  background-color: rgb(2, 21, 38, 0.5);
+  font-family: firagoMedium;
+  font-size: 20px;
+  color: #fff;
+  padding: 10.5px 26.5px;
+  letter-spacing: 1px;
+  width: max-content;
+  text-align: center;
+}
+
+.listingItemInfos {
+  padding: 30px 25px;
+  padding-left: 0;
+}
+
+.listingItemInfos h3 {
+  font-family: firagoBold;
+  font-size: 48px;
+  color: #021526;
+  margin-bottom: 24px;
+}
+
+.listingAddress {
+  display: flex;
+  align-items: center;
+  column-gap: 7px;
+  margin-bottom: 20.5px;
+}
+
+.listingInfoItem p,
+.listingAddress p {
+  font-family: firago;
+  font-size: 24px;
+  color: rgb(2, 21, 38, 0.7);
+}
+
+.listingInfo {
+  display: flex;
+  align-items: flex-start;
+  column-gap: 32px;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.listingInfoItem {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.listingDesription {
+  margin-top: 40px;
+  margin-bottom: 50px;
+  font-family: firago;
+  font-size: 16px;
+  color: #808a93;
+  letter-spacing: 1px;
+  line-height: 25px;
+}
+
+.listingInfoAgent {
+  border: 1px solid #dbdbdb;
+  padding: 24px 20px;
+  border-radius: 8px;
+}
+
+.agentImg {
+  display: flex;
+  column-gap: 14px;
+  margin-bottom: 16px;
+}
+.agentImgContainer {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  border-radius: 100px;
+}
+
+.agentImgContainer img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.agentTitle {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+}
+
+.agentTitle h4 {
+  font-family: firago;
+  font-size: 16px;
+  color: #021526;
+}
+.agentTitle p {
+  font-family: firago;
+  font-size: 14px;
+  color: #676e76;
+}
+
+.agentContact {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+}
+
+.agentContact p {
+  display: flex;
+  font-family: firago;
+  font-size: 14px;
+  color: #808a93;
+}
+
+.agentContact p svg {
+  margin-left: 5px;
+}
+
+.deleteBtn {
+  font-family: firagoMedium;
+  font-size: 12px;
+  color: #676e76;
+  padding: 10px;
+  border: 1px solid #676e76;
+  border-radius: 8px;
+  margin-top: 20px;
+  background-color: #fff;
+}
+
+.deleteBtn:hover {
+  color: #fff;
+  border: none;
+  background-color: #808a93;
+}

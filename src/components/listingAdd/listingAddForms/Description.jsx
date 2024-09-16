@@ -6,7 +6,7 @@ import { ValidationMarkSvg } from "../../../assets/common/svg/addListing";
 const Description = ({ register, errors }) => {
   return (
     <div className={`${style.locationInputs} ${styles.addListInputs}`}>
-      <div className={style.formInputs}>
+      <div className={`${style.formInputs} ${style.descriptionInput}`}>
         <div
           className={`${style.inputContainers} ${
             errors.description ? style.errorBtn : ""
@@ -14,8 +14,10 @@ const Description = ({ register, errors }) => {
         >
           <label>
             <span>აღწერა*</span>
-            <input
-              type="text"
+            <textarea
+              className={style.textarea}
+              rows="8"
+              style={{ height: "135px", width: "100%" }}
               {...register("description", {
                 required: "ველი სავალდებულოა",
                 minLength: {

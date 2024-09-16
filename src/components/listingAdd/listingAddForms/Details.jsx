@@ -4,26 +4,29 @@ import styles from "../style.module.css";
 import { ValidationMarkSvg } from "../../../assets/common/svg/addListing";
 import Bedroom from "./Bedroom";
 import Description from "./Description";
+import ImageUpload from "./ImageUpload";
 
-const Details = ({ register, errors }) => {
+const Details = ({ register, errors, validatingFields }) => {
   return (
-    <div className={`${style.locationInputs} ${styles.addListInputs}`}>
+    <div
+      className={`${style.locationInputs} ${styles.addListInputs} ${style.detailsInputs}`}
+    >
       <h4>ბინის დეტალები</h4>
 
       <div className={style.formInputs}>
         <div
           className={`${style.inputContainers} ${
-            errors.address ? style.errorBtn : ""
+            errors.price ? style.errorBtn : ""
           }`}
         >
           <label>
             <span>ფასი</span>
             <input
-              type="number"
-              {...register("address", {
+              type="text"
+              {...register("price", {
                 required: "ველი სავალდებულოა",
-                minLength: {
-                  value: 2,
+                pattern: {
+                  value: /^[0-9]+$/,
                   message: "მხოლოდ რიცხვები",
                 },
               })}
@@ -31,12 +34,12 @@ const Details = ({ register, errors }) => {
           </label>
 
           <p
-            className={`${errors.address ? style.error : style.tipText} ${
-              validatingFields.address ? style.successValidate : ""
+            className={`${errors.price ? style.error : style.tipText} ${
+              validatingFields.price ? style.successValidate : ""
             }`}
           >
-            {errors.address ? (
-              errors.address.message
+            {errors.price ? (
+              errors.price.message
             ) : (
               <span>
                 <ValidationMarkSvg /> მხოლოდ რიცხვები
@@ -47,25 +50,29 @@ const Details = ({ register, errors }) => {
 
         <div
           className={`${style.inputContainers} ${
-            errors.zip_code ? style.errorBtn : ""
+            errors.area ? style.errorBtn : ""
           }`}
         >
           <label>
             <span>ფართობი</span>
             <input
-              type="number"
-              {...register("zip_code", {
+              type="text"
+              {...register("area", {
                 required: "ველი სავალდებულოა",
+                pattern: {
+                  value: /^[0-9]+$/,
+                  message: "მხოლოდ რიცხვები",
+                },
               })}
             />
           </label>
           <p
-            className={`${errors.zip_code ? style.error : style.tipText} ${
-              validatingFields.zip_code ? style.successValidate : ""
+            className={`${errors.area ? style.error : style.tipText} ${
+              validatingFields.area ? style.successValidate : ""
             }`}
           >
-            {errors.zip_code ? (
-              errors.zip_code.message
+            {errors.area ? (
+              errors.area.message
             ) : (
               <span>
                 <ValidationMarkSvg /> მხოლოდ რიცხვები
@@ -76,6 +83,7 @@ const Details = ({ register, errors }) => {
       </div>
       <Bedroom register={register} errors={errors} />
       <Description register={register} errors={errors} />
+      <ImageUpload register={register} errors={errors} />
     </div>
   );
 };

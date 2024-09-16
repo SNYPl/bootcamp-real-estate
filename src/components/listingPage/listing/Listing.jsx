@@ -9,7 +9,7 @@ import {
 import listImg from "../../../assets/images/listImg.png";
 import { Link } from "react-router-dom";
 
-const Listing = () => {
+const Listing = ({}) => {
   return (
     <Link to={"#"} className={`${style.listing} `}>
       <div className={`${style.listingImage} `}>
