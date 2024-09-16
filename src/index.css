@@ -55,3 +55,8 @@ code {
   font-family: firagoBold;
   src: url("./assets/fonts/FiraGO-Bold.woff");
 }
+
+@font-face {
+  font-family: helveticaMedium;
+  src: url("./assets/fonts/HelveticaNeueMedium.otf");
+}

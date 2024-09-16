@@ -1,8 +1,13 @@
 .listingAdd {
   padding: 62px 0;
+  padding-bottom: 87px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.listingAdd form {
+  width: 790px;
 }
 
 .listingAdd h2 {
@@ -10,6 +15,13 @@
   font-size: 32px;
   color: #021526;
   margin-bottom: 61px;
+}
+
+.addListInputs h4 {
+  margin-bottom: 8px;
+  font-family: helveticaMedium;
+  font-size: 16px;
+  color: #1a1a1f;
 }
 
 .areaInputs input {
@@ -21,17 +33,39 @@
   outline: none;
 }
 
+.buttons {
+  margin-top: 90px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+  column-gap: 15px;
+}
+
+.buttons button {
+  padding: 14px 16px;
+  font-family: firagoMedium;
+  outline: none;
+  border-radius: 10px;
+}
+
 .chooseBtn {
   background-color: #f93b1d;
   color: #fff;
-  padding: 8px 14px;
-  font-family: firagoMedium;
   border: none;
-  outline: none;
-  border-radius: 8px;
-  margin-top: 32px;
 }
 
 .chooseBtn:hover {
   background-color: #df3014;
+}
+
+.cancelBtn {
+  background-color: #fff;
+  color: #f93b1d;
+  border: 1px solid #f93b1d;
+}
+
+.cancelBtn:hover {
+  background-color: #f93b1d;
+  color: #fff;
 }

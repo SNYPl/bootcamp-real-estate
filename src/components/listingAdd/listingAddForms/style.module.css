@@ -1,0 +1,86 @@
+.listingAddType {
+  margin-bottom: 80px;
+}
+
+.locationInputs select,
+.locationInputs input {
+  border: 1px solid #808a93;
+  border-radius: 6px;
+  height: 42px;
+  outline: none;
+  width: 100%;
+}
+
+.typeInputs {
+  display: flex;
+  align-items: center;
+  column-gap: 84px;
+}
+
+.typeInputs label {
+  font-family: firago;
+  font-size: 14px;
+  color: #021526;
+}
+
+.selectorContainer,
+.formInputs {
+  display: flex;
+  column-gap: 20px;
+  margin-top: 20px;
+  justify-content: space-between;
+}
+
+.inputContainers {
+  width: 384px;
+}
+
+.inputContainers label {
+  display: flex;
+  flex-direction: column;
+}
+
+.locationInputs label span,
+.formInputs label span {
+  font-family: firagoMedium;
+  font-size: 14px;
+  color: #021526;
+  margin-bottom: 5px;
+}
+
+.formInputs label {
+  font-family: firagoMedium;
+  font-size: 14px;
+  color: #021526;
+  margin-bottom: 5px;
+}
+
+.formInputs input::-webkit-outer-spin-button,
+.formInputs input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.formInputs input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.errorBtn input {
+  border: 1px solid #f93b1d;
+}
+.tipText {
+  font-family: firago;
+  font-size: 12px;
+  text-wrap: nowrap;
+}
+
+.error {
+  font-family: firago;
+  font-size: 12px;
+  text-wrap: nowrap;
+  color: #f93b1d;
+}
+
+.successValidate {
+  color: #45a849;
+}
