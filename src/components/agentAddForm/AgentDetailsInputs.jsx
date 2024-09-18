@@ -1,8 +1,6 @@
 import React from "react";
 import style from "./style.module.css";
 import { ValidationMarkSvg } from "../../assets/common/svg/addListing";
-import axios from "axios";
-import { useQuery } from "react-query";
 
 const AgentDetailsInputs = ({ register, errors }) => {
   return (
@@ -40,14 +38,14 @@ const AgentDetailsInputs = ({ register, errors }) => {
 
         <div
           className={`${style.inputContainers} ${
-            errors.familyName ? style.errorBtn : ""
+            errors.surname ? style.errorBtn : ""
           }`}
         >
           <label>
             <span>გვარი*</span>
             <input
               type="text"
-              {...register("familyName", {
+              {...register("surname", {
                 required: "ველი სავალდებულოა",
                 minLength: {
                   value: 2,
@@ -56,9 +54,9 @@ const AgentDetailsInputs = ({ register, errors }) => {
               })}
             />
           </label>
-          <p className={`${errors.familyName ? style.error : style.tipText} `}>
-            {errors.familyName ? (
-              errors.familyName.message
+          <p className={`${errors.surname ? style.error : style.tipText} `}>
+            {errors.surname ? (
+              errors.surname.message
             ) : (
               <span>
                 <ValidationMarkSvg /> მინიმუმ ორი სიმბოლო
@@ -100,14 +98,14 @@ const AgentDetailsInputs = ({ register, errors }) => {
 
         <div
           className={`${style.inputContainers} ${
-            errors.phoneNumber ? style.errorBtn : ""
+            errors.phone ? style.errorBtn : ""
           }`}
         >
           <label>
             <span>ტელეფონის ნომერი*</span>
             <input
               type="number"
-              {...register("phoneNumber", {
+              {...register("phone", {
                 required: "ველი სავალდებულოა",
                 pattern: {
                   value: /^5\d{8}$/,
@@ -117,9 +115,9 @@ const AgentDetailsInputs = ({ register, errors }) => {
             />
           </label>
 
-          <p className={`${errors.phoneNumber ? style.error : style.tipText} `}>
-            {errors.phoneNumber ? (
-              errors.phoneNumber.message
+          <p className={`${errors.phone ? style.error : style.tipText} `}>
+            {errors.phone ? (
+              errors.phone.message
             ) : (
               <span>
                 <ValidationMarkSvg /> მხოლოდ რიცხვები

@@ -1,43 +1,79 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import style from "./style.module.css";
-import axios from "axios";
-import { useQuery } from "react-query";
 import TypeForm from "./listingAddForms/type";
 import { useForm } from "react-hook-form";
 import Button from "../button/Button";
 import LocationInputs from "./listingAddForms/Location";
-import { getAllRegions } from "../../utils/getAllRegions";
 import Details from "./listingAddForms/Details";
 import Agents from "./listingAddForms/Agents";
 import { useNavigate } from "react-router-dom";
+import useGetAllAgents from "../hooks/useGetAllAgents";
+import useGetAllRegion from "../hooks/useGetAllRegion";
+import { useMutation } from "react-query";
+import axios from "axios";
 
 const ListingAdd = () => {
-  const [regions, setRegions] = useState([]);
   const navigate = useNavigate();
+  const {
+    data: agentsData,
+    isLoading: agentsLoading,
+    isError: agentsError,
+  } = useGetAllAgents();
+
+  const {
+    data: regionData,
+    isLoading: regionLoading,
+    isError: regionError,
+  } = useGetAllRegion();
 
   const {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors, validatingFields },
   } = useForm();
 
-  useEffect(() => {
-    const fetchRegions = async () => {
-      try {
-        const data = await getAllRegions();
-        setRegions(data);
-      } catch (error) {
-        console.error("Error fetching regions:", error);
+  const mutation = useMutation((data) => {
+    return axios.post(
+      "https://api.real-estate-manager.redberryinternship.ge/api/real-estates",
+      data,
+      {
+        headers: {
+          Authorization: "Bearer 9d04c1f4-4b69-4c2e-923a-e717ad5764fc",
+        },
       }
-    };
-
-    fetchRegions();
-  }, []);
+    );
+  });
 
   const onSubmit = (data) => {
-    console.log(data);
+    const isRental = data.type === "იყიდება" ? 0 : 1;
+    const formData = new FormData();
+    formData.append("address", data.address);
+    formData.append("region_id", data.region);
+    formData.append("description", data.description);
+    formData.append("city_id", data.city);
+    formData.append("zip_code", data.zip_code);
+    formData.append("price", data.price);
+    formData.append("area", data.area);
+    formData.append("agent_id", data.agent);
+    formData.append("bedrooms", data.bedroom);
+    formData.append("is_rental", isRental);
+    formData.append("image", data.avatar);
+
+    console.log(formData);
+
+    mutation.mutate(formData, {
+      onSuccess: (response) => {
+        console.log("real estate added successfully:", response.data);
+      },
+      onError: (error) => {
+        console.error("Error adding real estate:", error);
+      },
+    });
   };
+
+  console.log(mutation.isSuccess);
 
   const cancelBtnHandler = () => {
     navigate("/");
@@ -52,29 +88,33 @@ const ListingAdd = () => {
           register={register}
           errors={errors}
           watch={watch}
-          regions={regions}
+          regions={regionData}
           validatingFields={validatingFields}
         />
         <Details
           register={register}
           errors={errors}
           validatingFields={validatingFields}
+          setValue={setValue}
         />
-        <Agents register={register} errors={errors} />
+        <Agents register={register} errors={errors} data={agentsData} />
         <div className={style.buttons}>
-          <div className={style.btnContainer}>
-            <Button
-              type={"button"}
-              className={style.cancelBtn}
-              onClick={cancelBtnHandler}
-            >
-              გაუქმება
-            </Button>
-          </div>
-          <div className={style.btnContainer}>
-            <Button type={"submit"} className={style.chooseBtn}>
-              დაამატე ლისტინგი
-            </Button>
+          {mutation?.isSuccess ? <p> ლისტი წარმატებით დაემატა</p> : ""}
+          <div className={style.btns}>
+            <div className={style.btnContainer}>
+              <Button
+                type={"button"}
+                className={style.cancelBtn}
+                onClick={cancelBtnHandler}
+              >
+                გაუქმება
+              </Button>
+            </div>
+            <div className={style.btnContainer}>
+              <Button type={"submit"} className={style.chooseBtn}>
+                {mutation.isLoading ? "ემატება" : "დაამატე ლისტინგი"}
+              </Button>
+            </div>
           </div>
         </div>
       </form>

@@ -40,6 +40,20 @@
 .buttons {
   margin-top: 90px;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.buttons p {
+  color: green;
+  white-space: nowrap;
+  text-align: center;
+  font-family: firago;
+  font-size: 12px;
+}
+
+.btns {
+  display: flex;
   width: 100%;
   align-items: center;
   justify-content: flex-end;

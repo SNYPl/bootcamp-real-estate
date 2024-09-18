@@ -1,33 +1,8 @@
 import React from "react";
 import style from "./style.module.css";
 import styles from "../style.module.css";
-import axios from "axios";
-import { useQuery } from "react-query";
 
-const Agents = ({ register, errors }) => {
-  const options = {
-    method: "GET",
-    url: "https://api.real-estate-manager.redberryinternship.ge/api/agents",
-    headers: {
-      accept: "application/json",
-      Authorization: "Bearer 9d04c1f4-4b69-4c2e-923a-e717ad5764fc",
-    },
-  };
-
-  const { data, isLoading, isError } = useQuery(
-    ["getAllAgentList"],
-    async () => {
-      try {
-        const response = await axios.request(options);
-
-        return response.data;
-      } catch (error) {
-        console.error("Error fetching agent list", error);
-        throw new Error("Error fetching agent list");
-      }
-    }
-  );
-
+const Agents = ({ register, errors, data }) => {
   return (
     <div className={`${style.locationInputs} ${styles.addListInputs}`}>
       <h4>აგენტი</h4>

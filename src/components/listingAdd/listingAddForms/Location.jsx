@@ -19,7 +19,6 @@ const LocationInputs = ({
     url: "https://api.real-estate-manager.redberryinternship.ge/api/cities",
     headers: {
       accept: "application/json",
-      Authorization: "Bearer 9d04c1f4-4b69-4c2e-923a-e717ad5764fc",
     },
   };
 
@@ -121,7 +120,7 @@ const LocationInputs = ({
             <span>რეგიონი</span>
             <select {...register("region", { required: "სავალდებულო" })}>
               <option value="">აირჩიე რეგიონი</option>
-              {regions.map((region) => {
+              {regions?.map((region) => {
                 return (
                   <option value={region.id} key={region.id}>
                     {region.name}
@@ -144,7 +143,7 @@ const LocationInputs = ({
               <span>ქალაქი</span>
               <select {...register("city", { required: "სავალდებულო" })}>
                 <option value="">აირჩიე ქალაქი</option>
-                {filteredCitiesWithRegion.map((city) => {
+                {filteredCitiesWithRegion?.map((city) => {
                   return (
                     <option value={city.id} key={city.id}>
                       {city.name}

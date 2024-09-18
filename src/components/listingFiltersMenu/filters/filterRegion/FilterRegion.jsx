@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
 import style from "./style.module.css";
 import FilterModal from "../FilterModal";
-import { getAllRegions } from "../../../../utils/getAllRegions";
 import Button from "../../../button/Button";
 import { useForm } from "react-hook-form";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { filterDefaultDataForLocalStorage } from "../../../lib/filterDefaultData";
+import useGetAllRegion from "../../../hooks/useGetAllRegion";
 
 const FilterRegion = ({ setMenu }) => {
-  const [regions, setRegions] = useState([]);
   const [filterItems, setFilterItems] = useLocalStorage(
     "filters",
     filterDefaultDataForLocalStorage
   );
   const [checkedRegions, setCheckedRegions] = useState([]);
+  const {
+    data: regions,
+    isLoading: isLoading,
+    isError: isError,
+  } = useGetAllRegion();
 
   const { register, handleSubmit } = useForm();
 
@@ -22,19 +26,6 @@ const FilterRegion = ({ setMenu }) => {
 
     setCheckedRegions(allCheckedItems);
   }, [filterItems.region.length]);
-
-  useEffect(() => {
-    const fetchRegions = async () => {
-      try {
-        const data = await getAllRegions();
-        setRegions(data);
-      } catch (error) {
-        console.error("Error fetching regions:", error);
-      }
-    };
-
-    fetchRegions();
-  }, []);
 
   const onSubmit = (data) => {
     setFilterItems((state) => {
@@ -58,7 +49,7 @@ const FilterRegion = ({ setMenu }) => {
     <FilterModal title={"რეგიონის მიხედვით"} className={style.regionModal}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={style.filterRegion}>
-          {regions.map(({ id, name }) => {
+          {regions?.map(({ id, name }) => {
             const isChecked = checkedRegions.includes(name);
 
             return (

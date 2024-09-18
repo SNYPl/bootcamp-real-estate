@@ -6,7 +6,7 @@ import Bedroom from "./Bedroom";
 import Description from "./Description";
 import ImageUpload from "./ImageUpload";
 
-const Details = ({ register, errors, validatingFields }) => {
+const Details = ({ register, errors, validatingFields, setValue }) => {
   return (
     <div
       className={`${style.locationInputs} ${styles.addListInputs} ${style.detailsInputs}`}
@@ -83,7 +83,7 @@ const Details = ({ register, errors, validatingFields }) => {
       </div>
       <Bedroom register={register} errors={errors} />
       <Description register={register} errors={errors} />
-      <ImageUpload register={register} errors={errors} />
+      <ImageUpload register={register} errors={errors} setValue={setValue} />
     </div>
   );
 };
