@@ -117,6 +117,7 @@
   left: 0;
   width: 100%;
   height: 100%;
+  border-radius: 100px;
 }
 
 .agentTitle {
@@ -147,10 +148,11 @@
   font-family: firago;
   font-size: 14px;
   color: #808a93;
+  margin-bottom: 4px;
 }
 
 .agentContact p svg {
-  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .deleteBtn {

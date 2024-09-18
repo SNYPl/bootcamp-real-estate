@@ -6,23 +6,34 @@ import {
   ListingFrameSvg,
   ListingPostalCodeSvg,
 } from "../../../assets/common/svg/listing";
-import listImg from "../../../assets/images/listImg.png";
 import { Link } from "react-router-dom";
 
-const Listing = ({}) => {
+const Listing = ({
+  address,
+  area,
+  bedrooms,
+  city,
+  id,
+  image,
+  is_rental,
+  price,
+  zip_code,
+}) => {
   return (
-    <Link to={"#"} className={`${style.listing} `}>
+    <Link to={`/listing/${id}`} className={`${style.listing} `}>
       <div className={`${style.listingImage} `}>
-        <img src={listImg} alt="listing-image" />
-        <span>ქირავდება</span>
+        <img src={image} alt="listing-image" />
+        <span>{is_rental ? "ქირავდება" : "იყიდება"}</span>
       </div>
       <div className={`${style.listingItemInfos} `}>
-        <h3>80 000 ₾</h3>
+        <h3>{price} ₾</h3>
         <div className={`${style.listingAddress} `}>
           <span>
             <ListingMarkSvg />
           </span>
-          <p>თბილისი, ი. ჭავჭავაძის 53</p>
+          <p>
+            {city.name}, {address}
+          </p>
         </div>
 
         <div className={`${style.listingInfo} `}>
@@ -30,19 +41,19 @@ const Listing = ({}) => {
             <span>
               <ListingBedSvg />
             </span>
-            <p>2</p>
+            <p>{bedrooms}</p>
           </div>
           <div className={`${style.listingInfoItem} `}>
             <span>
               <ListingFrameSvg />
             </span>
-            <p>55 მ²</p>
+            <p>{area} მ²</p>
           </div>
           <div className={`${style.listingInfoItem} `}>
             <span>
               <ListingPostalCodeSvg />
             </span>
-            <p>0160</p>
+            <p>{zip_code}</p>
           </div>
         </div>
       </div>

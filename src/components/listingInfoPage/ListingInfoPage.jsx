@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import style from "./style.module.css";
-import Listing from "../listingPage/listing/Listing";
 import axios from "axios";
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import {
   ListingMarkSvg,
   ListingBedSvg,
@@ -10,46 +9,80 @@ import {
   ListingPostalCodeSvg,
   LeftArrow,
 } from "../../assets/common/svg/listing";
-import listImg from "../../assets/images/listInfo.png";
 import AgentInfo from "./AgentInfo";
 import Button from "../button/Button";
 import Modal from "../modal/Modal";
 import SimilarListingSlider from "./similarListingSlider/SimilarListingSlider";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ListingInfoPage = () => {
   const [deleteAgent, setDeleteAgent] = useState(false);
   const navigate = useNavigate();
-  // const options = {
-  //   method: "GET",
-  //   url:
-  //     "https://api.real-estate-manager.redberryinternship.ge/api/real-estates",
-  //   headers: {
-  //     accept: "application/json",
-  //     Authorization: "Bearer 9d04c1f4-4b69-4c2e-923a-e717ad5764fc",
-  //   },
-  // };
+  const { id } = useParams();
 
-  // const { data, isLoading, isError, isFetched } = useQuery(
-  //   ["getAllRealEstate"],
-  //   async () => {
-  //     try {
-  //       const response = await axios.request(options);
+  const options = {
+    method: "GET",
+    url: `https://api.real-estate-manager.redberryinternship.ge/api/real-estates/${id}`,
 
-  //       return response.data;
-  //     } catch (error) {
-  //       console.error("Error fetching featured products", error);
-  //       throw new Error("Error fetching featured products");
+    headers: {
+      accept: "application/json",
+      Authorization: "Bearer 9d04c1f4-4b69-4c2e-923a-e717ad5764fc",
+    },
+  };
+
+  const { data, isLoading, isError, isFetched } = useQuery(
+    ["getCurrentRealEstate", id],
+    async () => {
+      try {
+        const response = await axios.request(options);
+
+        return response.data;
+      } catch (error) {
+        console.error("Error fetching featured products", error);
+        throw new Error("Error fetching featured products");
+      }
+    }
+  );
+
+  if (isLoading) {
+    return <div>...loading</div>;
+  }
+
+  const dateString = "2024-09-18T00:51:59.000000Z"; // Your original date
+  const date = new Date(dateString); // Create Date object
+
+  // Extract month, day, and year in the desired format
+  const formattedDate = `${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}/${date
+    .getDate()
+    .toString()
+    .padStart(2, "0")}/${date.getFullYear().toString().slice(-2)}`;
+
+  // const mutation = useMutation((data) => {
+  //   return axios.post(
+  //     "https://api.real-estate-manager.redberryinternship.ge/api/agents",
+  //     data,
+  //     {
+  //       headers: {
+  //         Authorization: "Bearer 9d04c1f4-4b69-4c2e-923a-e717ad5764fc",
+  //       },
   //     }
-  //   }
-  // );
+  //   );
+  // });
 
-  // console.log(data);
+  const deleteListHandler = (id) => {
+    console.log(id);
+  };
 
   return (
     <>
       {deleteAgent && (
-        <Modal setDeleteAgent={setDeleteAgent} hideButtons={false}>
+        <Modal
+          setDeleteAgent={setDeleteAgent}
+          hideButtons={false}
+          submitClick={deleteListHandler}
+        >
           <p>გსურთ წაშალოთ ლისტინგი?</p>
         </Modal>
       )}
@@ -61,16 +94,18 @@ const ListingInfoPage = () => {
           >
             <LeftArrow />
           </div>
-          <img src={listImg} alt="listing-image" />
-          <span>ქირავდება</span>
+          <img src={data.image} alt="listing-image" />
+          <span>{data?.is_rental ? "ქირავდება" : "იყიდება"}</span>
         </div>
         <div className={`${style.listingItemInfos} `}>
-          <h3>80 000 ₾</h3>
+          <h3>{data?.price.toLocaleString("en-US")} ₾</h3>
           <div className={`${style.listingAddress} `}>
             <span>
               <ListingMarkSvg />
             </span>
-            <p>თბილისი, ი. ჭავჭავაძის 53</p>
+            <p>
+              {data.city.name}, {data?.address}
+            </p>
           </div>
 
           <div className={`${style.listingInfo} `}>
@@ -78,30 +113,27 @@ const ListingInfoPage = () => {
               <span>
                 <ListingFrameSvg />
               </span>
-              <p>ფართი 55 მ²</p>
+              <p>ფართი {data?.area} მ²</p>
             </div>
 
             <div className={`${style.listingInfoItem} `}>
               <span>
                 <ListingBedSvg />
               </span>
-              <p>საძინებელი 2</p>
+              <p>საძინებელი {data?.bedrooms}</p>
             </div>
 
             <div className={`${style.listingInfoItem} `}>
               <span>
                 <ListingPostalCodeSvg />
               </span>
-              <p> საფოსტო ინდექსი 0160</p>
+              <p> საფოსტო ინდექსი {data?.zip_code}</p>
             </div>
           </div>
 
-          <div className={style.listingDesription}>
-            იყიდება ბინა ჭავჭავაძის ქუჩაზე, ვაკეში. ბინა არის ახალი რემონტით,
-            ორი საძინებლითა და დიდი აივნებით. მოწყობილია ავეჯითა და ტექნიკით.
-          </div>
+          <div className={style.listingDesription}>{data?.description}</div>
 
-          <AgentInfo />
+          <AgentInfo agent={data?.agent} />
 
           <Button
             className={style.deleteBtn}
@@ -111,10 +143,10 @@ const ListingInfoPage = () => {
           </Button>
         </div>
         <p className={style.listingInfoDate}>
-          გამოქვეყნების თარიღი <span>08/08/24</span>
+          გამოქვეყნების თარიღი <span>{formattedDate}</span>
         </p>
       </section>
-      <SimilarListingSlider />
+      {/* <SimilarListingSlider  region={data?.city.region.name} region={data?.city.region.id} /> */}
     </>
   );
 };

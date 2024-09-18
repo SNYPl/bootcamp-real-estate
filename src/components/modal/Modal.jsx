@@ -3,7 +3,13 @@ import style from "./style.module.css";
 import { CloseSvg } from "../../assets/common/svg/listing";
 import Button from "../button/Button";
 
-const Modal = ({ children, setDeleteAgent, hideButtons, className }) => {
+const Modal = ({
+  children,
+  setDeleteAgent,
+  hideButtons,
+  className,
+  submitClick,
+}) => {
   return (
     <section className={`${style.overlay} `}>
       <div className={`${style.modal} ${className}`}>
@@ -25,7 +31,10 @@ const Modal = ({ children, setDeleteAgent, hideButtons, className }) => {
               </Button>
             </div>
             <div className={`${style.listAddBtn} `}>
-              <Button className={`${style.addBtn} ${style.listingBtn}`}>
+              <Button
+                className={`${style.addBtn} ${style.listingBtn}`}
+                onClick={submitClick}
+              >
                 დადასტურება
               </Button>
             </div>

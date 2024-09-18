@@ -33,8 +33,9 @@ const ListingPage = () => {
 
   return (
     <section className={`${style.listingPage} `}>
-      <Listing />
-      <Listing />
+      {data?.map((el) => (
+        <Listing {...el} key={el.id} />
+      ))}
     </section>
   );
 };

@@ -3,25 +3,28 @@ import style from "./style.module.css";
 import { AgentEmailSvg, AgentMobileSvg } from "../../assets/common/svg/listing";
 import agentImg from "../../assets/images/agentImg.png";
 
-const AgentInfo = () => {
+const AgentInfo = ({ agent }) => {
+  console.log(agent);
   return (
     <article className={`${style.listingInfoAgent} `}>
       <div className={`${style.agentImg} `}>
         <div className={`${style.agentImgContainer} `}>
-          <img src={agentImg} alt="agent" />
+          <img src={agent.avatar} alt="agent" />
         </div>
         <div className={`${style.agentTitle} `}>
-          <h4>სოფიო გელოვანი</h4>
+          <h4>
+            {agent.name} {agent.surname}
+          </h4>
           <p>აგენტი</p>
         </div>
       </div>
 
       <div className={style.agentContact}>
         <p>
-          <AgentEmailSvg /> sophio.gelovani@redberry.ge
+          <AgentEmailSvg /> {agent.email}
         </p>
         <p>
-          <AgentMobileSvg /> 577 777 777
+          <AgentMobileSvg /> {agent.phone}
         </p>
       </div>
     </article>
