@@ -61,8 +61,6 @@ const ListingAdd = () => {
     formData.append("is_rental", isRental);
     formData.append("image", data.avatar);
 
-    console.log(formData);
-
     mutation.mutate(formData, {
       onSuccess: (response) => {
         console.log("real estate added successfully:", response.data);
