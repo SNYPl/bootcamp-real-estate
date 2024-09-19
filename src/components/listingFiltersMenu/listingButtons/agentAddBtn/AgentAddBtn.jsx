@@ -13,7 +13,7 @@ const AgentAddBtn = () => {
         <Modal
           hideButtons={true}
           className={style.modal}
-          setDeleteAgent={setAgentAddModal}
+          cancelModal={setAgentAddModal}
         >
           <AgentAddForm setAgentAddModal={setAgentAddModal} />
         </Modal>

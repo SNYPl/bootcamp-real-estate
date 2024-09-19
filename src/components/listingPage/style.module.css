@@ -4,3 +4,11 @@
   grid-template-columns: repeat(4, 1fr);
   column-gap: 20px;
 }
+
+.noDataTitle {
+  margin-top: 35px;
+  font-family: firago;
+  font-size: 20px;
+  color: #021526;
+  white-space: nowrap;
+}

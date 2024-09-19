@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import style from "./style.module.css";
 import axios from "axios";
-import { useQuery, useMutation } from "react-query";
+import { useQuery } from "react-query";
 import {
   ListingMarkSvg,
   ListingBedSvg,
@@ -16,7 +16,7 @@ import SimilarListingSlider from "./similarListingSlider/SimilarListingSlider";
 import { useNavigate, useParams } from "react-router-dom";
 
 const ListingInfoPage = () => {
-  const [deleteAgent, setDeleteAgent] = useState(false);
+  const [deleteListi, setDeleteList] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -38,8 +38,8 @@ const ListingInfoPage = () => {
 
         return response.data;
       } catch (error) {
-        console.error("Error fetching featured products", error);
-        throw new Error("Error fetching featured products");
+        console.error("Error fetching listing info ", error);
+        throw new Error("Error fetching listing info");
       }
     }
   );
@@ -48,10 +48,9 @@ const ListingInfoPage = () => {
     return <div>...loading</div>;
   }
 
-  const dateString = "2024-09-18T00:51:59.000000Z"; // Your original date
-  const date = new Date(dateString); // Create Date object
+  const dateString = "2024-09-18T00:51:59.000000Z";
+  const date = new Date(dateString);
 
-  // Extract month, day, and year in the desired format
   const formattedDate = `${(date.getMonth() + 1)
     .toString()
     .padStart(2, "0")}/${date
@@ -59,27 +58,27 @@ const ListingInfoPage = () => {
     .toString()
     .padStart(2, "0")}/${date.getFullYear().toString().slice(-2)}`;
 
-  // const mutation = useMutation((data) => {
-  //   return axios.post(
-  //     "https://api.real-estate-manager.redberryinternship.ge/api/agents",
-  //     data,
-  //     {
-  //       headers: {
-  //         Authorization: "Bearer 9d04c1f4-4b69-4c2e-923a-e717ad5764fc",
-  //       },
-  //     }
-  //   );
-  // });
+  const deleteListHandler = async () => {
+    const deleteResposnse = await axios.delete(
+      `https://api.real-estate-manager.redberryinternship.ge/api/real-estates/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer 9d04c1f4-4b69-4c2e-923a-e717ad5764fc",
+        },
+      }
+    );
 
-  const deleteListHandler = (id) => {
-    console.log(id);
+    if (deleteResposnse.status === 200) {
+      setDeleteList(false);
+      navigate("/");
+    }
   };
 
   return (
     <>
-      {deleteAgent && (
+      {deleteListi && (
         <Modal
-          setDeleteAgent={setDeleteAgent}
+          cancelModal={setDeleteList}
           hideButtons={false}
           submitClick={deleteListHandler}
         >
@@ -137,7 +136,7 @@ const ListingInfoPage = () => {
 
           <Button
             className={style.deleteBtn}
-            onClick={() => setDeleteAgent((prevState) => !prevState)}
+            onClick={() => setDeleteList((prevState) => !prevState)}
           >
             ლისტინგის წაშლა
           </Button>
@@ -146,7 +145,7 @@ const ListingInfoPage = () => {
           გამოქვეყნების თარიღი <span>{formattedDate}</span>
         </p>
       </section>
-      {/* <SimilarListingSlider  region={data?.city.region.name} region={data?.city.region.id} /> */}
+      <SimilarListingSlider regionId={data?.city.region.id} id={id} />
     </>
   );
 };

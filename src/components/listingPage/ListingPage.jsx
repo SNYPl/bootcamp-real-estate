@@ -1,39 +1,36 @@
 import React from "react";
 import style from "./style.module.css";
 import Listing from "./listing/Listing";
-import axios from "axios";
-import { useQuery } from "react-query";
+import { useLocalStorage } from "@uidotdev/usehooks";
+import { filterDefaultDataForLocalStorage } from "../lib/filterDefaultData";
+import { filterListings } from "../helper/filterList";
+import useGetAllListing from "../hooks/useGetAllListing";
 
 const ListingPage = () => {
-  const options = {
-    method: "GET",
-    url:
-      "https://api.real-estate-manager.redberryinternship.ge/api/real-estates",
-    headers: {
-      accept: "application/json",
-      Authorization: "Bearer 9d04c1f4-4b69-4c2e-923a-e717ad5764fc",
-    },
-  };
-
-  const { data, isLoading, isError, isFetched } = useQuery(
-    ["getAllRealEstate"],
-    async () => {
-      try {
-        const response = await axios.request(options);
-
-        return response.data;
-      } catch (error) {
-        console.error("Error fetching featured products", error);
-        throw new Error("Error fetching featured products");
-      }
-    }
+  const [filterItems] = useLocalStorage(
+    "filters",
+    filterDefaultDataForLocalStorage
   );
 
-  console.log(data);
+  const { data, isLoading, isError } = useGetAllListing();
+
+  if (isLoading) {
+    return <div>...loading</div>;
+  }
+
+  const filteredData = data?.filter((list) =>
+    filterListings(list, filterItems)
+  );
 
   return (
     <section className={`${style.listingPage} `}>
-      {data?.map((el) => (
+      {filteredData?.length == 0 && (
+        <p className={style.noDataTitle}>
+          აღნიშნული მონაცემებით განცხადება არ იძებნება
+        </p>
+      )}
+
+      {filteredData?.map((el) => (
         <Listing {...el} key={el.id} />
       ))}
     </section>

@@ -5,17 +5,24 @@ import Button from "../button/Button";
 
 const Modal = ({
   children,
-  setDeleteAgent,
+  cancelModal,
   hideButtons,
   className,
   submitClick,
 }) => {
   return (
-    <section className={`${style.overlay} `}>
+    <section
+      className={`${style.overlay} `}
+      onClick={(e) => {
+        if (e.currentTarget === e.target) {
+          cancelModal(false);
+        }
+      }}
+    >
       <div className={`${style.modal} ${className}`}>
         <div
           className={`${style.closeIcon} `}
-          onClick={() => setDeleteAgent(false)}
+          onClick={() => cancelModal(false)}
         >
           <CloseSvg />
         </div>
@@ -25,7 +32,7 @@ const Modal = ({
             <div className={`${style.agentAddBtn} `}>
               <Button
                 className={`${style.addBtn} ${style.agentBtn}`}
-                onClick={() => setDeleteAgent(false)}
+                onClick={() => cancelModal(false)}
               >
                 გაუქმება
               </Button>

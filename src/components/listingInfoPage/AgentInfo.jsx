@@ -1,10 +1,8 @@
 import React from "react";
 import style from "./style.module.css";
 import { AgentEmailSvg, AgentMobileSvg } from "../../assets/common/svg/listing";
-import agentImg from "../../assets/images/agentImg.png";
 
 const AgentInfo = ({ agent }) => {
-  console.log(agent);
   return (
     <article className={`${style.listingInfoAgent} `}>
       <div className={`${style.agentImg} `}>

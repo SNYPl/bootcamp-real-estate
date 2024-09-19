@@ -66,14 +66,13 @@ const ListingAdd = () => {
     mutation.mutate(formData, {
       onSuccess: (response) => {
         console.log("real estate added successfully:", response.data);
+        navigate("/");
       },
       onError: (error) => {
         console.error("Error adding real estate:", error);
       },
     });
   };
-
-  console.log(mutation.isSuccess);
 
   const cancelBtnHandler = () => {
     navigate("/");

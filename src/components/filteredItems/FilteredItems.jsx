@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import style from "./style.module.css";
 import { useLocalStorage } from "@uidotdev/usehooks";
-import { DeleteFilterSvg } from "../../../../assets/common/svg/filter";
-import Button from "../../../button/Button";
-import { filterDefaultDataForLocalStorage } from "../../../lib/filterDefaultData";
+import { DeleteFilterSvg } from "../../assets/common/svg/filter";
+import Button from "../button/Button";
+import { filterDefaultDataForLocalStorage } from "../lib/filterDefaultData";
 
 const FilteredItems = () => {
   const [filterItems, setFilterItems] = useLocalStorage("filters");
@@ -52,7 +52,11 @@ const FilteredItems = () => {
 
       {(filteredData?.price?.fromPrice || filteredData?.price?.toPrice) && (
         <div className={style.filterItem}>
-          <p>{`${filteredData?.price?.fromPrice} ₾ - ${filteredData?.price?.toPrice} ₾`}</p>
+          <p>{`${
+            filteredData?.price?.fromPrice
+              ? filteredData?.price?.fromPrice
+              : "0"
+          } ₾ - ${filteredData?.price?.toPrice} ₾`}</p>
           <span
             className={style.closeSvg}
             onClick={() => {
@@ -73,7 +77,9 @@ const FilteredItems = () => {
 
       {(filteredData?.area?.fromArea || filteredData?.area?.toArea) && (
         <div className={style.filterItem}>
-          <p>{`${filteredData?.area?.fromArea} მ² - ${filteredData?.area?.toArea} მ²`}</p>
+          <p>{`${
+            filteredData?.area?.fromArea ? filteredData?.area?.fromArea : "0"
+          } მ² - ${filteredData?.area?.toArea} მ²`}</p>
           <span
             className={style.closeSvg}
             onClick={() => {

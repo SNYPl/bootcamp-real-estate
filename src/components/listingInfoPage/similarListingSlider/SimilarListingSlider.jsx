@@ -3,13 +3,27 @@ import style from "./style.module.css";
 import Listing from "../../listingPage/listing/Listing";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { LeftArrow, RightArrow } from "../../../assets/common/svg/listing";
+import useGetAllListing from "../../hooks/useGetAllListing";
 
 import "swiper/css";
 import "swiper/css/navigation";
 
 import { Navigation } from "swiper/modules";
 
-const SimilarListingSlider = () => {
+const SimilarListingSlider = ({ id, regionId }) => {
+  const { data, isLoading } = useGetAllListing();
+
+  if (isLoading) {
+    return <div>...loading</div>;
+  }
+
+  const filteredSimialLists = data?.filter((el) => {
+    if (el.city.region_id === regionId && +id !== el.id) {
+      return true;
+    }
+    return false;
+  });
+
   return (
     <article className={`${style.similarListingSlider} `}>
       <h2>ბინები მსგავს ლოკაციაზე</h2>
@@ -23,24 +37,11 @@ const SimilarListingSlider = () => {
         modules={[Navigation]}
         className="mySwiper"
       >
-        <SwiperSlide>
-          <Listing />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Listing />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Listing />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Listing />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Listing />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Listing />
-        </SwiperSlide>
+        {filteredSimialLists.map((list) => (
+          <SwiperSlide key={list.id}>
+            <Listing {...list} />
+          </SwiperSlide>
+        ))}
       </Swiper>
       <div className="swiper-button-prevv">
         <LeftArrow />
