@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import style from "./style.module.css";
 import styles from "../style.module.css";
-import { AgentAddIcon } from "../../../assets/common/svg/addListing";
 import { agentContext } from "../../store/agentAddStore";
 
 const Agents = ({ register, errors, data }) => {
@@ -32,12 +31,7 @@ const Agents = ({ register, errors, data }) => {
                 onChange={handleSelectChange}
               >
                 <option value="">აირჩიე აგენტი</option>
-                <option value="addAgent">
-                  <p>
-                    <AgentAddIcon />
-                  </p>{" "}
-                  დაამატე აგენტი
-                </option>
+                <option value="addAgent">+ დაამატე აგენტი</option>
                 {data?.map((agent) => {
                   return (
                     <option value={agent.id} key={agent.id}>
