@@ -3,7 +3,13 @@ import style from "./style.module.css";
 import styles from "../style.module.css";
 import { agentContext } from "../../store/agentAddStore";
 
-const Agents = ({ register, errors, data }) => {
+const Agents = ({
+  register,
+  errors,
+  data,
+  setListingAddInputs,
+  listingAddInputs,
+}) => {
   const { setAddAgentHandler } = useContext(agentContext);
 
   const handleSelectChange = (e) => {

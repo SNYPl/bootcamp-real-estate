@@ -11,8 +11,14 @@ import useGetAllAgents from "../hooks/useGetAllAgents";
 import useGetAllRegion from "../hooks/useGetAllRegion";
 import { useMutation } from "react-query";
 import axios from "axios";
+import { useLocalStorage } from "@uidotdev/usehooks";
+import { listingAddDefaultStorage } from "../lib/filterDefaultData";
 
 const ListingAdd = () => {
+  const [listingAddInputs, setListingAddInputs] = useLocalStorage(
+    "listingAddInputs",
+    listingAddDefaultStorage
+  );
   const navigate = useNavigate();
   const {
     data: agentsData,
@@ -80,21 +86,36 @@ const ListingAdd = () => {
     <section className={`${style.listingAdd} `}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <h2>ლისტინგის დამატება</h2>
-        <TypeForm register={register} errors={errors} />
+        <TypeForm
+          register={register}
+          errors={errors}
+          setListingAddInputs={setListingAddInputs}
+          listingAddInputs={listingAddInputs}
+        />
         <LocationInputs
           register={register}
           errors={errors}
           watch={watch}
           regions={regionData}
           validatingFields={validatingFields}
+          setListingAddInputs={setListingAddInputs}
+          listingAddInputs={listingAddInputs}
         />
         <Details
           register={register}
           errors={errors}
           validatingFields={validatingFields}
           setValue={setValue}
+          setListingAddInputs={setListingAddInputs}
+          listingAddInputs={listingAddInputs}
         />
-        <Agents register={register} errors={errors} data={agentsData} />
+        <Agents
+          register={register}
+          errors={errors}
+          data={agentsData}
+          setListingAddInputs={setListingAddInputs}
+          listingAddInputs={listingAddInputs}
+        />
         <div className={style.buttons}>
           {mutation?.isSuccess ? <p> ლისტი წარმატებით დაემატა</p> : ""}
           <div className={style.btns}>

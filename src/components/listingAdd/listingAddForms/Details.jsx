@@ -6,7 +6,14 @@ import Bedroom from "./Bedroom";
 import Description from "./Description";
 import ImageUpload from "./ImageUpload";
 
-const Details = ({ register, errors, validatingFields, setValue }) => {
+const Details = ({
+  register,
+  errors,
+  validatingFields,
+  setValue,
+  setListingAddInputs,
+  listingAddInputs,
+}) => {
   return (
     <div
       className={`${style.locationInputs} ${styles.addListInputs} ${style.detailsInputs}`}

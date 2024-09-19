@@ -11,6 +11,8 @@ const LocationInputs = ({
   watch,
   regions,
   validatingFields,
+  setListingAddInputs,
+  listingAddInputs,
 }) => {
   const region = watch("region");
 

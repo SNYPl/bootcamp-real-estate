@@ -2,7 +2,12 @@ import React from "react";
 import style from "./style.module.css";
 import styles from "../style.module.css";
 
-const TypeForm = ({ register, errors }) => {
+const TypeForm = ({
+  register,
+  errors,
+  setListingAddInputs,
+  listingAddInputs,
+}) => {
   return (
     <div className={`${style.listingAddType}  ${styles.addListInputs}`}>
       <h4>გარიგების ტიპი</h4>
