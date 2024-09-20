@@ -10,8 +10,8 @@ const ImageUpload = ({ register, errors, setValue }) => {
   const [imagePreview, setImagePreview] = useState(null);
 
   const validateFileSize = (file) => {
-    if (!file) {
-      return "ველი სავალდებულოა";
+    if (!file?.type?.includes("image")) {
+      return "ველი სავალდებულოა, აირჩიეთ ფოტო";
     } else if (file && file[0]?.size > 1048576) {
       return "ფაილის ზომა არ უნდა აღემატებოდეს 1MB-ს";
     }

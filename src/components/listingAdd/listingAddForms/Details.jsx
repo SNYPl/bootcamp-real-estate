@@ -37,6 +37,13 @@ const Details = ({
                   message: "მხოლოდ რიცხვები",
                 },
               })}
+              value={listingAddInputs.price}
+              onChange={(e) => {
+                setListingAddInputs((prevState) => ({
+                  ...prevState,
+                  price: e.target.value,
+                }));
+              }}
             />
           </label>
 
@@ -71,6 +78,13 @@ const Details = ({
                   message: "მხოლოდ რიცხვები",
                 },
               })}
+              value={listingAddInputs.area}
+              onChange={(e) => {
+                setListingAddInputs((prevState) => ({
+                  ...prevState,
+                  area: e.target.value,
+                }));
+              }}
             />
           </label>
           <p
@@ -88,8 +102,18 @@ const Details = ({
           </p>
         </div>
       </div>
-      <Bedroom register={register} errors={errors} />
-      <Description register={register} errors={errors} />
+      <Bedroom
+        register={register}
+        errors={errors}
+        setListingAddInputs={setListingAddInputs}
+        listingAddInputs={listingAddInputs}
+      />
+      <Description
+        register={register}
+        errors={errors}
+        setListingAddInputs={setListingAddInputs}
+        listingAddInputs={listingAddInputs}
+      />
       <ImageUpload register={register} errors={errors} setValue={setValue} />
     </div>
   );

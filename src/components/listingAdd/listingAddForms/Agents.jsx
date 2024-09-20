@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import style from "./style.module.css";
 import styles from "../style.module.css";
 import { agentContext } from "../../store/agentAddStore";
@@ -9,6 +9,7 @@ const Agents = ({
   data,
   setListingAddInputs,
   listingAddInputs,
+  setValue,
 }) => {
   const { setAddAgentHandler } = useContext(agentContext);
 
@@ -17,8 +18,22 @@ const Agents = ({
 
     if (selectedValue === "addAgent") {
       setAddAgentHandler(true);
+      return;
     }
+
+    setListingAddInputs((prevState) => {
+      return {
+        ...prevState,
+        agent: selectedValue,
+      };
+    });
   };
+
+  useEffect(() => {
+    if (listingAddInputs.agent) {
+      setValue("agent", listingAddInputs.agent);
+    }
+  }, [listingAddInputs.agent, setValue]);
 
   return (
     <>
@@ -35,6 +50,7 @@ const Agents = ({
               <select
                 {...register("agent", { required: "სავალდებულო" })}
                 onChange={handleSelectChange}
+                value={listingAddInputs.agent || "აირჩიე აგენტი"}
               >
                 <option value="">აირჩიე აგენტი</option>
                 <option value="addAgent">+ დაამატე აგენტი</option>

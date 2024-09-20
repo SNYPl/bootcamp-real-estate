@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import style from "./style.module.css";
 import styles from "../style.module.css";
 import { ValidationMarkSvg } from "../../../assets/common/svg/addListing";
@@ -8,14 +8,12 @@ import { useQuery } from "react-query";
 const LocationInputs = ({
   register,
   errors,
-  watch,
   regions,
   validatingFields,
   setListingAddInputs,
   listingAddInputs,
+  setValue,
 }) => {
-  const region = watch("region");
-
   const options = {
     method: "GET",
     url: "https://api.real-estate-manager.redberryinternship.ge/api/cities",
@@ -36,8 +34,17 @@ const LocationInputs = ({
   });
 
   const filteredCitiesWithRegion = data?.filter(
-    (city) => city.region_id === Number(region)
+    (city) => city.region_id === Number(listingAddInputs?.region)
   );
+
+  useEffect(() => {
+    if (listingAddInputs.region) {
+      setValue("region", listingAddInputs.region);
+    }
+    if (listingAddInputs.city) {
+      setValue("city", listingAddInputs.city);
+    }
+  }, [listingAddInputs.region, setValue, listingAddInputs.city]);
 
   return (
     <div className={`${style.locationInputs} ${styles.addListInputs}`}>
@@ -53,6 +60,7 @@ const LocationInputs = ({
             <span>მისამართი*</span>
             <input
               type="text"
+              value={listingAddInputs.address}
               {...register("address", {
                 required: "ველი სავალდებულოა",
                 minLength: {
@@ -60,6 +68,12 @@ const LocationInputs = ({
                   message: "მინიმუმ ორი სიმბოლო",
                 },
               })}
+              onChange={(e) => {
+                setListingAddInputs((prevState) => ({
+                  ...prevState,
+                  address: e.target.value,
+                }));
+              }}
             />
           </label>
 
@@ -87,6 +101,7 @@ const LocationInputs = ({
             <span>საფოსტო ინდექსი*</span>
             <input
               type="text"
+              value={listingAddInputs.zip_code}
               {...register("zip_code", {
                 required: "ველი სავალდებულოა",
                 pattern: {
@@ -94,6 +109,12 @@ const LocationInputs = ({
                   message: "მხოლოდ რიცხვები",
                 },
               })}
+              onChange={(e) => {
+                setListingAddInputs((prevState) => ({
+                  ...prevState,
+                  zip_code: e.target.value,
+                }));
+              }}
             />
           </label>
           <p
@@ -120,7 +141,19 @@ const LocationInputs = ({
         >
           <label>
             <span>რეგიონი</span>
-            <select {...register("region", { required: "სავალდებულო" })}>
+            <select
+              {...register("region", { required: "სავალდებულო" })}
+              onChange={(e) => {
+                setListingAddInputs((prevState) => {
+                  const region = e.target.value;
+                  return {
+                    ...prevState,
+                    region: region,
+                  };
+                });
+              }}
+              value={listingAddInputs.region || "აირჩიე რეგიონი"}
+            >
               <option value="">აირჩიე რეგიონი</option>
               {regions?.map((region) => {
                 return (
@@ -135,7 +168,7 @@ const LocationInputs = ({
             <p className={style.error}>{errors.region.message}</p>
           )}
         </div>
-        {region && (
+        {listingAddInputs.region && (
           <div
             className={`${style.inputContainers} ${
               errors.city ? style.errorBtn : ""
@@ -143,7 +176,19 @@ const LocationInputs = ({
           >
             <label>
               <span>ქალაქი</span>
-              <select {...register("city", { required: "სავალდებულო" })}>
+              <select
+                {...register("city", { required: "სავალდებულო" })}
+                onChange={(e) => {
+                  setListingAddInputs((prevState) => {
+                    const newCity = e.target.value;
+                    return {
+                      ...prevState,
+                      city: newCity,
+                    };
+                  });
+                }}
+                value={listingAddInputs.city || "აირჩიე ქალაქი"}
+              >
                 <option value="">აირჩიე ქალაქი</option>
                 {filteredCitiesWithRegion?.map((city) => {
                   return (

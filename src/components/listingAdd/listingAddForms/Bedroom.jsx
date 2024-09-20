@@ -3,7 +3,12 @@ import style from "./style.module.css";
 import styles from "../style.module.css";
 import { ValidationMarkSvg } from "../../../assets/common/svg/addListing";
 
-const Bedroom = ({ register, errors }) => {
+const Bedroom = ({
+  register,
+  errors,
+  setListingAddInputs,
+  listingAddInputs,
+}) => {
   return (
     <div className={`${style.locationInputs} ${styles.addListInputs}`}>
       <div className={style.formInputs}>
@@ -28,6 +33,13 @@ const Bedroom = ({ register, errors }) => {
                     "მხოლოდ მთლიანი რიცხვები",
                 },
               })}
+              onChange={(e) => {
+                setListingAddInputs((prevState) => ({
+                  ...prevState,
+                  bedroom: e.target.value,
+                }));
+              }}
+              value={listingAddInputs.bedroom}
             />
           </label>
 

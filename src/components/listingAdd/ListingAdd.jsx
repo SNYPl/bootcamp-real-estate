@@ -35,7 +35,6 @@ const ListingAdd = () => {
   const {
     register,
     handleSubmit,
-    watch,
     setValue,
     formState: { errors, validatingFields },
   } = useForm();
@@ -70,6 +69,7 @@ const ListingAdd = () => {
     mutation.mutate(formData, {
       onSuccess: (response) => {
         console.log("real estate added successfully:", response.data);
+        setListingAddInputs(() => listingAddDefaultStorage);
         navigate("/");
       },
       onError: (error) => {
@@ -95,11 +95,11 @@ const ListingAdd = () => {
         <LocationInputs
           register={register}
           errors={errors}
-          watch={watch}
           regions={regionData}
           validatingFields={validatingFields}
           setListingAddInputs={setListingAddInputs}
           listingAddInputs={listingAddInputs}
+          setValue={setValue}
         />
         <Details
           register={register}
@@ -115,6 +115,7 @@ const ListingAdd = () => {
           data={agentsData}
           setListingAddInputs={setListingAddInputs}
           listingAddInputs={listingAddInputs}
+          setValue={setValue}
         />
         <div className={style.buttons}>
           {mutation?.isSuccess ? <p> ლისტი წარმატებით დაემატა</p> : ""}

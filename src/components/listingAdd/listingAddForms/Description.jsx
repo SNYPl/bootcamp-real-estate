@@ -3,7 +3,12 @@ import style from "./style.module.css";
 import styles from "../style.module.css";
 import { ValidationMarkSvg } from "../../../assets/common/svg/addListing";
 
-const Description = ({ register, errors }) => {
+const Description = ({
+  register,
+  errors,
+  setListingAddInputs,
+  listingAddInputs,
+}) => {
   return (
     <div className={`${style.locationInputs} ${styles.addListInputs}`}>
       <div className={`${style.formInputs} ${style.descriptionInput}`}>
@@ -25,6 +30,13 @@ const Description = ({ register, errors }) => {
                   message: "მინიმუმ ხუთი სიმბოლო",
                 },
               })}
+              onChange={(e) => {
+                setListingAddInputs((prevState) => ({
+                  ...prevState,
+                  description: e.target.value,
+                }));
+              }}
+              value={listingAddInputs.description}
             />
           </label>
 

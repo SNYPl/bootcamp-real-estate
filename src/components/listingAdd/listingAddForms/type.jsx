@@ -19,6 +19,13 @@ const TypeForm = ({
             {...register("type", {
               required: "გთხოვთ, აირჩიოთ ვარიანტი",
             })}
+            checked={listingAddInputs.type === "იყიდება"}
+            onChange={(e) => {
+              setListingAddInputs((prevState) => ({
+                ...prevState,
+                type: e.target.value,
+              }));
+            }}
           />
           იყიდება
         </label>
@@ -29,6 +36,13 @@ const TypeForm = ({
             {...register("type", {
               required: "გთხოვთ, აირჩიოთ ვარიანტი",
             })}
+            checked={listingAddInputs.type === "ქირავდება"}
+            onChange={(e) => {
+              setListingAddInputs((prevState) => ({
+                ...prevState,
+                type: e.target.value,
+              }));
+            }}
           />
           ქირავდება
         </label>
